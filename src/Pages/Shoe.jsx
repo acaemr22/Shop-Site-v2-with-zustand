@@ -55,7 +55,7 @@ export function Product() {
         <div className="sm:flex-col justify-center sm:flex gap-10">
           <div className="py-3 px-2 w-full">
             <h3 className="text-[18px] flex flex-row gap-10 pr-10">
-              <span>Price:</span>
+              <span className="font-semibold">Fiyat:</span>
               <span className="text-orange-600 w-full font-semibold">{product.price}</span>
             </h3>
           </div>
