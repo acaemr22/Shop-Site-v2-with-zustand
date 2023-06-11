@@ -259,7 +259,10 @@ const Navbar = ({
                       Sepeti Görüntüle
                     </button>
                     <button
-                      onClick={() => navigate("/shop-basket/checkout")}
+                      onClick={() => {
+                        navigate("/shop-basket/checkout");
+                        setShoppingCardOpened(false);
+                      }}
                       className="bg-orange-600 opacity-90 text-white hover:opacity-70 font-semibold p- px-4 rounded-sm"
                     >
                       Ödeme Yap
