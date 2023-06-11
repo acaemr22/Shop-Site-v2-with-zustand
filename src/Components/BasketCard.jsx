@@ -53,7 +53,7 @@ const BasketCard = ({
             <h4 className="text-[17px]">{number}</h4>
             <button
               onClick={() => {
-                dispatchBasketProducts({ type: "inc", path });
+                dispatchBasketProducts({ type: "inc", path, number: 1 });
               }}
             >
               <Plus size={14} weight="bold" />

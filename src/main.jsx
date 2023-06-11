@@ -19,6 +19,9 @@ import {
   Checkout,
   MainErrorPage,
   NotFound,
+  Bottle,
+  ClothBag,
+  Shoe,
 } from "./Pages/export";
 import { loader as bottlesLoader } from "./Pages/Bottles";
 import { loader as clothBagsLoader } from "./Pages/ClothBags";
@@ -37,26 +40,17 @@ const router = createBrowserRouter(
           element={<ClothBags />}
           loader={clothBagsLoader}
           path="cloth-bags"
-          // action={action}
         />
-        <Route
-          element={<Shoes />}
-          loader={shoesLoader}
-          path="shoes"
-          // action={action}
-        />
+        <Route element={<ClothBag />} loader={clothBagsLoader} path="cloth-bags/:id" />
+        <Route element={<Shoes />} loader={shoesLoader} path="shoes" />
+        <Route element={<Shoe />} loader={shoesLoader} path="shoes/:id" />
         <Route
           element={<Accessories />}
           loader={accessoriesLoader}
           path="accessories"
-          // action={action}
         />
-        <Route
-          element={<Bottles />}
-          loader={bottlesLoader}
-          path="bottles"
-          // action={action}
-        />
+        <Route element={<Bottles />} loader={bottlesLoader} path="bottles" />
+        <Route element={<Bottle />} loader={bottlesLoader} path="bottles/:id" />
       </Route>
       <Route path="log-in" element={<Login />} action={loginAction} />
       <Route path="shop-basket">

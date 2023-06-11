@@ -17,30 +17,33 @@ const basketProductsReducer = (state, action) => {
       console.log(action);
       console.log(state);
 
-      localStorage.setItem(
-        "basketProducts",
-        JSON.stringify([
+        localStorage.setItem(
+          "basketProducts",
+          JSON.stringify([
+            {
+              text: action.text,
+              number: action.number
+                ? action.number
+                : action.number === 0
+                ? 0
+                : 1,
+              img: action.img,
+              price: action.price,
+              path: action.path,
+            },
+            ...state,
+          ])
+        );
+        return [
           {
             text: action.text,
-            number: 1,
+            number: action.number ? action.number : action.number === 0 ? 0 : 1,
             img: action.img,
             price: action.price,
             path: action.path,
           },
           ...state,
-        ])
-      );
-      return [
-        {
-          text: action.text,
-          number: 1,
-          img: action.img,
-          price: action.price,
-          path: action.path,
-        },
-        ...state,
-      ];
-
+        ];
     case "dec":
       const decObj = state.find((element) => element.path === action.path);
       const filteredStateDec = state.filter(
@@ -63,11 +66,24 @@ const basketProductsReducer = (state, action) => {
       localStorage.setItem(
         "basketProducts",
         JSON.stringify([
-          { ...incObj, number: incObj.number + 1 },
+          {
+            ...incObj,
+            number:
+              incObj.number +
+              (action.number ? action.number : action.number === 0 ? 0 : 1),
+          },
           ...filteredStateInc,
         ])
       );
-      return [{ ...incObj, number: incObj.number + 1 }, ...filteredStateInc];
+      return [
+        {
+          ...incObj,
+          number:
+            incObj.number +
+            (action.number ? action.number : action.number === 0 ? 0 : 1),
+        },
+        ...filteredStateInc,
+      ];
 
     case "del":
       localStorage.setItem(
@@ -77,11 +93,8 @@ const basketProductsReducer = (state, action) => {
       return state.filter((p) => p.path !== action.path);
 
     case "clear":
-      localStorage.setItem(
-        "basketProducts",
-        JSON.stringify([])
-      );
-      return []
+      localStorage.setItem("basketProducts", JSON.stringify([]));
+      return [];
   }
 };
 
@@ -92,10 +105,9 @@ function Layout() {
   );
   const loggedIn = localStorage.getItem("loggedIn") || false;
   const [searchParams, setSearchParams] = useSearchParams();
-  let isLoggedIn = localStorage.getItem("isLoggedIn") || false
-  localStorage.setItem("isLoggedIn", isLoggedIn)
-  
-  
+  let isLoggedIn = localStorage.getItem("isLoggedIn") || false;
+  localStorage.setItem("isLoggedIn", isLoggedIn);
+
   return (
     <div className="">
       <Navbar
@@ -106,7 +118,11 @@ function Layout() {
         searchParams={searchParams}
       />
       <Outlet
-        context={{searchParamsList: [searchParams, setSearchParams] , basket: [basketProducts, dispatchBasketProducts], loggedIn }}
+        context={{
+          searchParamsList: [searchParams, setSearchParams],
+          basket: [basketProducts, dispatchBasketProducts],
+          loggedIn,
+        }}
       />
       <Footer />
     </div>

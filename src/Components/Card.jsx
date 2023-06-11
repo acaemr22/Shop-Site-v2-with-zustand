@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Plus } from "@phosphor-icons/react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const Card = ({
@@ -50,6 +50,7 @@ const Card = ({
               dispatchBasketProducts({
                 text: productName,
                 price,
+                number: 1,
                 img,
                 type: "add",
                 path: path + "/" + id,
@@ -65,12 +66,14 @@ const Card = ({
         </div>
       </div>
       {/* Card Bottom and Info Part */}
-      <div className="flex flex-col items-start">
-        <h3 className="text-[14px]  font-semibold sm:text-[17px] ">
-          {productName}
-        </h3>
-        <p className="text-[14px] text-gray-500 sm:text-[17px]">{price}</p>
-      </div>
+      <NavLink className={"hover:text-orange-600"} to={path + "/" + id}>
+        <div className="flex flex-col items-start">
+          <h3 className="text-[14px]  font-semibold sm:text-[17px] ">
+            {productName}
+          </h3>
+          <p className="text-[14px] text-gray-500 sm:text-[17px]">{price}</p>
+        </div>
+      </NavLink>
     </div>
   );
 };

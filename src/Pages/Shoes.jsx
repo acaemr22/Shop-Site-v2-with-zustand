@@ -24,7 +24,6 @@ const Shoes = () => {
       <Suspense fallback={<Loading />}>
         <Await
           resolve={shoes.resp}
-          errorElement={<p>Error loading package location!</p>}
         >
           <Products classNameImg={" p-5 sm:p-10 md:p-20 sm:w-[400px]"} />
         </Await>
