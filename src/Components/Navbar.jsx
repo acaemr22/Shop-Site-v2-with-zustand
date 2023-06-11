@@ -15,7 +15,6 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import BasketCard from "./BasketCard";
-import { Form } from "react-router-dom";
 
 export async function action({ request }) {
   let formData = await request.formData();
@@ -201,8 +200,12 @@ const Navbar = ({
             <button onClick={() => setShoppingCardOpened((e) => !e)}>
               <ShoppingCartSimple size={32} />
             </button>
-            <div className={`${shoppingCartOpened ? "realative h-screen md:h-auto" : "hidden"}`}>
-              <div className="fixed flex flex-col h-screen md:h-auto md:top-20 top-0 left-0 md:right-0 md:left-auto shadow-2xl z-10 bg-white rounded-md py-5 ">
+            <div
+              className={`${
+                shoppingCartOpened ? "realative h-screen md:h-auto" : "hidden"
+              }`}
+            >
+              <div className="fixed flex flex-col shop-basket-navbar md:h-auto md:top-20 top-0 left-0 md:right-0 md:left-auto shadow-2xl z-10 bg-white rounded-md py-5 ">
                 <div className="cursor-pointer pb-5 pl-5">
                   <X size={32} onClick={() => setShoppingCardOpened(false)} />
                 </div>

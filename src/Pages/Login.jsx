@@ -34,7 +34,7 @@ const LogIn = () => {
         <h2 className="font-bold text-center text-[30px]">Giriş Yap</h2>
         <div className="flex flex-col gap-3 w-full max-w-lg">
         <div className="relative">
-              <input id="email" name="email" type="text" className="peer h-10 w-full bg-slate-100 border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-sky-500" placeholder=" " />
+              <input id="email" name="email" type="email" className="peer h-10 w-full bg-slate-100 border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-sky-500" placeholder=" " />
               <label htmlFor="email" className="absolute left-0 -top-3.5 text-gray-600  autofill text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">E-posta</label>
             </div>
         <div className="relative mt-5">
