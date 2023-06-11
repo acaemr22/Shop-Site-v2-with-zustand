@@ -14,7 +14,7 @@ const BasketCard = ({
   total,
 }) => {
   return (
-    <div className="flex relative items-center w-full flex-row pb-5">
+    <div className="flex relative items-center w-full flex-row py-5">
       <div className="flex-col flex items-center pr-5">
         <img
           src={img}
