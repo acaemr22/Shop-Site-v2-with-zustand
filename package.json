@@ -11,10 +11,11 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.9",
+    "firebase": "^9.22.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2",
     "react-router": "^6.11.2",
+    "react-router-dom": "^6.11.2",
     "remixicon": "^3.3.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import Card from "../Components/Card";
+import Card from "../../Components/Card";
 import { useLoaderData, useSearchParams } from 'react-router-dom'
 
 export async function loader() {

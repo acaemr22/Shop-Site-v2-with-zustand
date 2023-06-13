@@ -6,8 +6,9 @@ import {
   Await,
   useAsyncValue,
 } from "react-router-dom";
-import Card from "../Components/Card";
-import Loading from "./Loading";
+import Loading from "../Loading";
+import Card from "../../Components/Card";
+
 
 export async function loader() {
   async function fetchData() {

@@ -10,6 +10,10 @@ const basketProductsReducer = (state, action) => {
     if (booleanState) {
       action.type = "inc";
     }
+
+    if (action.number === 0) {
+      action.type = "none";
+    }
   }
 
   switch (action.type) {
@@ -17,24 +21,9 @@ const basketProductsReducer = (state, action) => {
       console.log(action);
       console.log(state);
 
-        localStorage.setItem(
-          "basketProducts",
-          JSON.stringify([
-            {
-              text: action.text,
-              number: action.number
-                ? action.number
-                : action.number === 0
-                ? 0
-                : 1,
-              img: action.img,
-              price: action.price,
-              path: action.path,
-            },
-            ...state,
-          ])
-        );
-        return [
+      localStorage.setItem(
+        "basketProducts",
+        JSON.stringify([
           {
             text: action.text,
             number: action.number ? action.number : action.number === 0 ? 0 : 1,
@@ -43,7 +32,18 @@ const basketProductsReducer = (state, action) => {
             path: action.path,
           },
           ...state,
-        ];
+        ])
+      );
+      return [
+        {
+          text: action.text,
+          number: action.number ? action.number : action.number === 0 ? 0 : 1,
+          img: action.img,
+          price: action.price,
+          path: action.path,
+        },
+        ...state,
+      ];
     case "dec":
       const decObj = state.find((element) => element.path === action.path);
       const filteredStateDec = state.filter(
@@ -95,6 +95,9 @@ const basketProductsReducer = (state, action) => {
     case "clear":
       localStorage.setItem("basketProducts", JSON.stringify([]));
       return [];
+
+    default:
+      return state
   }
 };
 

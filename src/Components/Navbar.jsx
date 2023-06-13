@@ -12,7 +12,6 @@ import {
   NavLink,
   useNavigate,
   useLocation,
-  useSearchParams,
 } from "react-router-dom";
 import BasketCard from "./BasketCard";
 
@@ -162,9 +161,15 @@ const Navbar = ({
           </div>
           {/* Account Text Part lg Screens  */}
           <div className="hidden lg:flex flex-col justify-center min-w-[150px] items-center">
-            <div>
+            <div className="flex flex-row gap-1">
               <h2 className="text-center text-[14px] font-semibold">
                 <NavLink to="/log-in">Oturum Aç</NavLink>
+              </h2>
+              <h2 className="text-center text-[14px] font-semibold">
+                {" / "}
+              </h2>
+              <h2 className="text-center text-[14px] font-semibold">
+                <NavLink to="/sign-up">Kayıt Ol</NavLink>
               </h2>
             </div>
             <div
@@ -182,7 +187,7 @@ const Navbar = ({
             <button onClick={() => setAccountOpen((e) => !e)}>
               <User size={32} />
             </button>
-            <div className={`relative ${accountOpen ? "" : "hidden"}`}>
+            <div onClick={() => setAccountOpen(false)} className={`relative ${accountOpen ? "" : "hidden"}`}>
               <ul className="bg-white list-none shadow-lg absolute -left-8 rounded-xl">
                 <li className="p-2  font-semibold w-[100px]">
                   <NavLink
@@ -190,6 +195,14 @@ const Navbar = ({
                     to="/log-in"
                   >
                     Oturum Aç
+                  </NavLink>
+                </li>
+                <li className="p-2 pt-0  font-semibold w-[100px]">
+                  <NavLink
+                    className={"hover:text-green-400 w-[90px]"}
+                    to="/sign-up"
+                  >
+                    Kayıt Ol
                   </NavLink>
                 </li>
               </ul>
@@ -206,8 +219,8 @@ const Navbar = ({
               }`}
             >
               <div className="fixed flex flex-col shop-basket-navbar md:h-auto md:top-20 top-0 left-0 md:right-0 md:left-auto shadow-2xl z-10 bg-white rounded-md py-5 ">
-                <div className="cursor-pointer pb-5 pl-5">
-                  <X size={32} onClick={() => setShoppingCardOpened(false)} />
+                <div className="cursor-pointer pb-5 pl-5" onClick={() => setShoppingCardOpened(false)}>
+                  <X size={32}/>
                 </div>
                 <div className="flex flex-col overflow-y-scroll h-auto md:w-[400px] min-height-basket w-screen  md:h-60 px-5 pb-5  divide-y">
                   {basketProducts.map((product) => (

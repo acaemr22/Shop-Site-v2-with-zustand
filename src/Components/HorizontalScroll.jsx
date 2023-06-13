@@ -46,6 +46,7 @@ const HorizontalScroll = ({ header, paragraph, bottles }) => {
                 productName={bottle.title}
                 img={bottle.url}
                 number={bottle.number}
+                noPath
               />
             );
           })}

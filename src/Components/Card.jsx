@@ -10,11 +10,12 @@ const Card = ({
   id,
   classNameImg,
   classNameImgContainer,
+  noPath = false
 }) => {
   const { basket } = useOutletContext();
   const [basketProducts, dispatchBasketProducts] = basket;
   const location = useLocation();
-  const path = location.pathname;
+  const path = noPath ? "/categories/bottles" : (location.pathname);
   const addButtonRef = useRef(null);
 
   function handleMouseEnter() {
@@ -66,7 +67,7 @@ const Card = ({
         </div>
       </div>
       {/* Card Bottom and Info Part */}
-      <NavLink className={"hover:text-orange-600"} to={path + "/" + id}>
+      <NavLink className={"hover:text-orange-600"} to={noPath ? "/categories/bottles/" + id :  (path + "/" + id)}>
         <div className="flex flex-col items-start">
           <h3 className="text-[14px]  font-semibold sm:text-[17px] ">
             {productName}
