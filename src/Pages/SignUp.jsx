@@ -167,7 +167,12 @@ const SignUp = () => {
               type="submit"
               className="bg-gray-900 hover:bg-gray-700 text-white w-full font-bold p-4 rounded-3xl"
             >
-              Giriş Yap
+                {navigation.state === "submitting"
+                ? "Kayıt Olunuyor..."
+                : navigation.state === "loading"
+                ? "Kayıt Olundu!"
+                : "Kayıt Ol"}
+
             </button>
           </div>
         </div>
