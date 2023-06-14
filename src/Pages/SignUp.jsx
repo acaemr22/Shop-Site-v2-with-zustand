@@ -4,7 +4,7 @@ import {
   useOutletContext,
   useActionData,
   redirect,
-  useNavigation
+  useNavigation,
 } from "react-router-dom";
 
 import {
@@ -23,7 +23,6 @@ export async function signUpAction({ request }) {
   const password = formData.get("password");
   const name = formData.get("name");
   const surname = formData.get("surname");
-  const navigation = useNavigation();
 
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
@@ -70,7 +69,7 @@ export async function signUpAction({ request }) {
         : "/shop-basket/checkout"
     );
   } else {
-    return "Girdiğiniz e-posta adresi kullanımdadır, lütfen başka bir e-posta adresi giriniz."
+    return "Girdiğiniz e-posta adresi kullanımdadır, lütfen başka bir e-posta adresi giriniz.";
   }
 }
 
@@ -78,6 +77,8 @@ const SignUp = () => {
   const { searchParamsList } = useOutletContext();
   const [searchParams, setSearchParams] = searchParamsList;
   const errorMessage = useActionData();
+  const navigation = useNavigation();
+
   return (
     <main className="py-28 pb-48 px-6 bg-slate-100">
       {errorMessage && (
@@ -169,12 +170,11 @@ const SignUp = () => {
               type="submit"
               className="bg-gray-900 hover:bg-gray-700 text-white w-full font-bold p-4 rounded-3xl"
             >
-                {navigation.state === "submitting"
+              {navigation.state === "submitting"
                 ? "Kayıt Olunuyor..."
                 : navigation.state === "loading"
                 ? "Kayıt Olundu!"
                 : "Kayıt Ol"}
-
             </button>
           </div>
         </div>
