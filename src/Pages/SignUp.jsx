@@ -29,6 +29,7 @@ export async function signUpAction({ request }) {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
+      redirect = true;
       // ...
     })
     .catch((error) => {
@@ -55,7 +56,6 @@ export async function signUpAction({ request }) {
     if (user) {
       const uid = user.uid;
 
-      redirect = true;
       // https://firebase.google.com/docs/reference/js/auth.user
       // ...
     }
