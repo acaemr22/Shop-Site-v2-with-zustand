@@ -48,7 +48,7 @@ const Card = ({
           alt="img"
         />
         {/* Button to Add To Shop Basket */}
-        <div className={`xsm:relative hidden`}>
+        <div className={`xsm:relative xsm:block hidden`}>
           <button
             onMouseOver={handleMouseEnter}
             onMouseOut={handleMouseOut}
