@@ -4,6 +4,7 @@ import {
   useOutletContext,
   useActionData,
   redirect,
+  useNavigation
 } from "react-router-dom";
 
 import {
@@ -22,6 +23,7 @@ export async function signUpAction({ request }) {
   const password = formData.get("password");
   const name = formData.get("name");
   const surname = formData.get("surname");
+  const navigation = useNavigation();
 
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
