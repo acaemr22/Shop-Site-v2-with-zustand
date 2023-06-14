@@ -25,7 +25,7 @@ export async function signUpAction({ request }) {
   const surname = formData.get("surname");
 
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
+  await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -37,7 +37,7 @@ export async function signUpAction({ request }) {
       // ..
     });
 
-  updateProfile(auth.currentUser, {
+  await updateProfile(auth.currentUser, {
     displayName: name,
     surname,
   })
@@ -63,7 +63,7 @@ export async function signUpAction({ request }) {
 
   if (redirect) {
     localStorage.setItem("isLoggedIn", true);
-    throw redirect(
+    return redirect(
       URLSearchParams.get("redirectTo")
         ? URLSearchParams.get("redirectTo")
         : "/shop-basket/checkout"
