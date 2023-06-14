@@ -47,6 +47,8 @@ const HorizontalScroll = ({ header, paragraph, bottles }) => {
                 img={bottle.url}
                 number={bottle.number}
                 noPath
+                shortText
+                shortCard
               />
             );
           })}

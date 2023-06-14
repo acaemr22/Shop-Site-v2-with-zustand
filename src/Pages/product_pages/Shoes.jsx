@@ -24,7 +24,7 @@ const Shoes = () => {
         <Await
           resolve={shoes.resp}
         >
-          <Products classNameImg={" p-5 sm:p-10 md:p-20 sm:w-[400px]"} />
+          <Products classNameImg={" sm:p-10 md:p-20 p-5 sm:w-[300px]"} />
         </Await>
       </Suspense>
     </main>

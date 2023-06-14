@@ -24,7 +24,7 @@ const ClothBags = () => {
           resolve={clothBags.resp}
           errorElement={<p>Error loading package location!</p>}
         >
-          <Products />
+          <Products shortText/>
         </Await>
       </Suspense>
     </main>

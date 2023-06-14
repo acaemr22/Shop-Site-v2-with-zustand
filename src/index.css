@@ -22,11 +22,9 @@
   transition: width 0.3s;
 }
 
-
 .cool-link-not-found {
   display: inline-block;
   text-decoration: none;
-
 }
 
 .cool-link-not-found::after {
@@ -42,8 +40,6 @@
   width: 100%;
   transition: width 0.3s;
 }
-
-
 
 .min-showcase-img {
   height: calc((100vh - 150px));
@@ -88,7 +84,13 @@ input:-webkit-autofill {
   transition: opacity 0.2s ease-in-out;
 }
 
-
 .shop-basket-navbar {
   height: calc(100vh - 80px);
+}
+
+.productname-span {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }

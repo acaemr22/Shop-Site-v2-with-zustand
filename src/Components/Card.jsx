@@ -10,12 +10,14 @@ const Card = ({
   id,
   classNameImg,
   classNameImgContainer,
-  noPath = false
+  noPath = false,
+  shortText,
+  shortCard 
 }) => {
   const { basket } = useOutletContext();
   const [basketProducts, dispatchBasketProducts] = basket;
   const location = useLocation();
-  const path = noPath ? "/categories/bottles" : (location.pathname);
+  const path = noPath ? "/categories/bottles" : location.pathname;
   const addButtonRef = useRef(null);
 
   function handleMouseEnter() {
@@ -31,14 +33,18 @@ const Card = ({
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
       className={
-        "min-w-[125px] sm:min-w-[200px] lg:min-w-[300px] flex flex-col pb-6 z-1 m-auto"
+        `min-w-[125px] sm:min-w-[200px] lg:min-w-[300px] flex flex-col pb-6 z-1 m-auto ${shortCard ? "overflow-hidden text-ellipsis whitespace-nowrap" : ""}`
       }
     >
       {/* Card Top and Img Part */}
-      <div className={`${classNameImgContainer}  pb-5`}>
+      <div
+        className={`${
+          classNameImgContainer ? classNameImgContainer : ""
+        }  pb-5`}
+      >
         <img
           src={img}
-          className={`rounded-md w-full ${classNameImg}`}
+          className={`rounded-md w-full ${classNameImg ? classNameImg : ""}`}
           alt="img"
         />
         {/* Button to Add To Shop Basket */}
@@ -67,9 +73,12 @@ const Card = ({
         </div>
       </div>
       {/* Card Bottom and Info Part */}
-      <NavLink className={"hover:text-orange-600"} to={noPath ? "/categories/bottles/" + id :  (path + "/" + id)}>
+      <NavLink
+        className={"hover:text-orange-600"}
+        to={noPath ? "/categories/bottles/" + id : path + "/" + id}
+      >
         <div className="flex flex-col items-start">
-          <h3 className="text-[14px]  font-semibold sm:text-[17px] ">
+          <h3 className={`text-[14px] font-semibold sm:text-[17px] ${shortText ? `productname-span ${shortCard ? "lg:w-[260px] xl:w-[290px] md:w-[190px] sm:w-[190px] xsm:w-[130px]" : "lg:w-[310px] xl:w-[400px] md:w-[350px] sm:w-[270px] xsm:w-[180px]"}   w-[100px]` : ""}`} >
             {productName}
           </h3>
           <p className="text-[14px] text-gray-500 sm:text-[17px]">{price}</p>

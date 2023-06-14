@@ -40,7 +40,7 @@ const Bottles = () => {
 
 export default Bottles;
 
-export function Products({classNameImg}) {
+export function Products({classNameImg = "", shortText = false}) {
   const products = useAsyncValue();
   const [filteredProducts, setFilteredProducts] = useState(products);
   const { searchParamsList } = useOutletContext();
@@ -70,6 +70,7 @@ export function Products({classNameImg}) {
         img={product.url}
         number={product.number}
         classNameImg={classNameImg}
+        shortText
       />
     )))();
 }
