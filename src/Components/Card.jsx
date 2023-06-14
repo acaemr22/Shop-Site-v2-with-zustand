@@ -48,7 +48,7 @@ const Card = ({
           alt="img"
         />
         {/* Button to Add To Shop Basket */}
-        <div className={`relative`}>
+        <div className={`xsm:relative`}>
           <button
             onMouseOver={handleMouseEnter}
             onMouseOut={handleMouseOut}
