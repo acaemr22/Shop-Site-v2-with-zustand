@@ -23,7 +23,7 @@ export async function signUpAction({ request }) {
   const password = formData.get("password");
   const name = formData.get("name");
   const surname = formData.get("surname");
-  let redirect = false
+  var redirect = true
 
   const auth = getAuth();
   await createUserWithEmailAndPassword(auth, email, password)
