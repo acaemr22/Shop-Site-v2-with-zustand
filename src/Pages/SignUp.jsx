@@ -31,18 +31,7 @@ export async function signUpAction({ request }) {
       // Signed in
       const user = userCredential.user;
       redirect = true;
-      await updateProfile(auth.currentUser, {
-        displayName: name,
-        surname,
-      })
-        .then(() => {
-          console.log("Profile Added.");
-        })
-        .catch((error) => {
-          // An error occurred
-          // ...
-        });
-    
+      
       // ...
     })
     .catch((error) => {
@@ -50,6 +39,17 @@ export async function signUpAction({ request }) {
       const errorMessage = error.message;
       // ..
     });
+    await updateProfile(auth.currentUser, {
+      displayName: name,
+      surname,
+    })
+      .then(() => {
+        console.log("Profile Added.");
+      })
+      .catch((error) => {
+        // An error occurred
+        // ...
+      });
 
 
   if (redirect) {
