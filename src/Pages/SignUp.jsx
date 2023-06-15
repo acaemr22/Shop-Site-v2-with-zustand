@@ -23,13 +23,26 @@ export async function signUpAction({ request }) {
   const password = formData.get("password");
   const name = formData.get("name");
   const surname = formData.get("surname");
+  let redirect = false
 
   const auth = getAuth();
   await createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in
       const user = userCredential.user;
       redirect = true;
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        surname,
+      })
+        .then(() => {
+          console.log("Profile Added.");
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
+        });
+    
       // ...
     })
     .catch((error) => {
@@ -38,30 +51,9 @@ export async function signUpAction({ request }) {
       // ..
     });
 
-  await updateProfile(auth.currentUser, {
-    displayName: name,
-    surname,
-  })
-    .then(() => {
-      console.log("Profile Added.");
-    })
-    .catch((error) => {
-      // An error occurred
-      // ...
-    });
-
-  let redirect = false;
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-
-      // https://firebase.google.com/docs/reference/js/auth.user
-      // ...
-    }
-  });
 
   if (redirect) {
+    console.log(redirect)
     localStorage.setItem("isLoggedIn", true);
     return redirect(
       URLSearchParams.get("redirectTo")
