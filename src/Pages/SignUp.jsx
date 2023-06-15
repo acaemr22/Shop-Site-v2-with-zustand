@@ -23,14 +23,14 @@ export async function signUpAction({ request }) {
   const password = formData.get("password");
   const name = formData.get("name");
   const surname = formData.get("surname");
-  var redirect = true
+  var redirectBoolean = false
 
   const auth = getAuth();
   await createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       // Signed in
       const user = userCredential.user;
-      redirect = true;
+      redirectBoolean = true;
       
       // ...
     })
@@ -52,7 +52,7 @@ export async function signUpAction({ request }) {
       });
 
 
-  if (redirect) {
+  if (redirectBoolean) {
     console.log(redirect)
     localStorage.setItem("isLoggedIn", true);
     return redirect(
