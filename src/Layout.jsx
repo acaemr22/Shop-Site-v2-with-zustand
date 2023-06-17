@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import { Outlet, useSearchParams } from "react-router-dom";
 import Footer from "./Components/Footer";
 import { create } from "zustand";
+import { produce } from "immer";
 
 const basketProductsReducer = (state, action) => {
   if (action.type === "add") {
@@ -49,60 +50,53 @@ const basketProductsReducer = (state, action) => {
       };
     case "dec":
       const decObj = state.find((element) => element.path === action.path);
-      const filteredStateDec = state.filter(
-        (element) => element.path !== decObj.path
+      const indexOfDecObj = state.findIndex(
+        (element) => element.path === decObj.path
       );
-      localStorage.setItem(
-        "basketProducts",
-        JSON.stringify([
-          { ...decObj, number: decObj.number - 1 },
-          ...filteredStateDec,
-        ])
-      );
-      return {basketProducts: [{ ...decObj, number: decObj.number - 1 }, ...filteredStateDec]};
+
+      const decBasketProducts = produce(state, (draft) => {
+        draft[indexOfDecObj] = { ...decObj, number: decObj.number - 1 };
+      });
+
+      localStorage.setItem("basketProducts", JSON.stringify(decBasketProducts));
+
+      return { basketProducts: decBasketProducts };
 
     case "inc":
       const incObj = state.find((element) => element.path === action.path);
-      const filteredStateInc = state.filter(
-        (element) => element.path !== incObj.path
+
+      const indexOfIncObj = state.findIndex(
+        (element) => element.path === incObj.path
       );
-      localStorage.setItem(
-        "basketProducts",
-        JSON.stringify([
-          {
-            ...incObj,
-            number:
-              incObj.number +
-              (action.number ? action.number : action.number === 0 ? 0 : 1),
-          },
-          ...filteredStateInc,
-        ])
-      );
-      return {
-        basketProducts: [
-        {
+
+      const incBasketProducts = produce(state, (draft) => {
+        draft[indexOfIncObj] = {
           ...incObj,
           number:
             incObj.number +
             (action.number ? action.number : action.number === 0 ? 0 : 1),
-        },
-        ...filteredStateInc,
-      ]};
+        };
+      });
+
+      localStorage.setItem("basketProducts", JSON.stringify(incBasketProducts));
+      return {
+        basketProducts: incBasketProducts,
+      };
 
     case "del":
       localStorage.setItem(
         "basketProducts",
         JSON.stringify(state.filter((p) => p.path !== action.path))
       );
-      const returnArry = state.filter((p) => p.path !== action.path)
-      return {basketProducts: returnArry};
+      const returnArry = state.filter((p) => p.path !== action.path);
+      return { basketProducts: returnArry };
 
     case "clear":
       localStorage.setItem("basketProducts", JSON.stringify([]));
-      return {basketProducts: []};
+      return { basketProducts: [] };
 
     default:
-      return {basketProducts: state};
+      return { basketProducts: state };
   }
 };
 
