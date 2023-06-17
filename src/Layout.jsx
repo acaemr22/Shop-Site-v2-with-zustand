@@ -2,6 +2,7 @@ import { useState, createContext, useReducer } from "react";
 import Navbar from "./Components/Navbar";
 import { Outlet, useSearchParams } from "react-router-dom";
 import Footer from "./Components/Footer";
+import { create } from "zustand";
 
 const basketProductsReducer = (state, action) => {
   if (action.type === "add") {
@@ -34,16 +35,18 @@ const basketProductsReducer = (state, action) => {
           ...state,
         ])
       );
-      return [
-        {
-          text: action.text,
-          number: action.number ? action.number : action.number === 0 ? 0 : 1,
-          img: action.img,
-          price: action.price,
-          path: action.path,
-        },
-        ...state,
-      ];
+      return {
+        basketProducts: [
+          {
+            text: action.text,
+            number: action.number ? action.number : action.number === 0 ? 0 : 1,
+            img: action.img,
+            price: action.price,
+            path: action.path,
+          },
+          ...state,
+        ],
+      };
     case "dec":
       const decObj = state.find((element) => element.path === action.path);
       const filteredStateDec = state.filter(
@@ -56,7 +59,7 @@ const basketProductsReducer = (state, action) => {
           ...filteredStateDec,
         ])
       );
-      return [{ ...decObj, number: decObj.number - 1 }, ...filteredStateDec];
+      return {basketProducts: [{ ...decObj, number: decObj.number - 1 }, ...filteredStateDec]};
 
     case "inc":
       const incObj = state.find((element) => element.path === action.path);
@@ -75,7 +78,8 @@ const basketProductsReducer = (state, action) => {
           ...filteredStateInc,
         ])
       );
-      return [
+      return {
+        basketProducts: [
         {
           ...incObj,
           number:
@@ -83,36 +87,42 @@ const basketProductsReducer = (state, action) => {
             (action.number ? action.number : action.number === 0 ? 0 : 1),
         },
         ...filteredStateInc,
-      ];
+      ]};
 
     case "del":
       localStorage.setItem(
         "basketProducts",
         JSON.stringify(state.filter((p) => p.path !== action.path))
       );
-      return state.filter((p) => p.path !== action.path);
+      const returnArry = state.filter((p) => p.path !== action.path)
+      return {basketProducts: returnArry};
 
     case "clear":
       localStorage.setItem("basketProducts", JSON.stringify([]));
-      return [];
+      return {basketProducts: []};
 
     default:
-      return state;
+      return {basketProducts: state};
   }
 };
 
-const useBasketStore = create((set) => ({
-  products: [],
-  dispatch: (args) => set((state) => reducer(state, args)),
+export const useBasketProductsStore = create((set) => ({
+  basketProducts: JSON.parse(localStorage.getItem("basketProducts")) || [],
+  dispatch: (args) =>
+    set((state) => basketProductsReducer(state.basketProducts, args)),
 }));
 
-const dispatch = useBasketStore((state) => state.dispatch);
-dispatch({ type: types.increase, by: 2 });
-
 function Layout() {
-  const [basketProducts, dispatchBasketProducts] = useReducer(
-    basketProductsReducer,
-    JSON.parse(localStorage.getItem("basketProducts")) || []
+  // const [basketProducts, dispatchBasketProducts] = useReducer(
+  //   basketProductsReducer,
+  //   JSON.parse(localStorage.getItem("basketProducts")) || []
+  // );
+
+  const basketProducts = useBasketProductsStore(
+    (state) => state.basketProducts
+  );
+  const dispatchBasketProducts = useBasketProductsStore(
+    (state) => state.dispatch
   );
 
   const loggedIn = localStorage.getItem("loggedIn") || false;
