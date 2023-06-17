@@ -97,15 +97,24 @@ const basketProductsReducer = (state, action) => {
       return [];
 
     default:
-      return state
+      return state;
   }
 };
+
+const useBasketStore = create((set) => ({
+  products: [],
+  dispatch: (args) => set((state) => reducer(state, args)),
+}));
+
+const dispatch = useBasketStore((state) => state.dispatch);
+dispatch({ type: types.increase, by: 2 });
 
 function Layout() {
   const [basketProducts, dispatchBasketProducts] = useReducer(
     basketProductsReducer,
     JSON.parse(localStorage.getItem("basketProducts")) || []
   );
+
   const loggedIn = localStorage.getItem("loggedIn") || false;
   const [searchParams, setSearchParams] = useSearchParams();
   let isLoggedIn = localStorage.getItem("isLoggedIn") || false;
